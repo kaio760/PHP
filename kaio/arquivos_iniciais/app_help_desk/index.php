@@ -33,12 +33,12 @@
             Login
           </div>
           <div class="card-body">
-            <form action="valida_login.php" method="get">
+            <form action="valida_login.php" method="post">
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="E-mail">
+                <input name="email" type="email" class="form-control" placeholder="E-mail">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Senha">
+                <input name="senha" type="password" class="form-control" placeholder="Senha">
               </div>
 
               <?php
@@ -49,8 +49,7 @@
 
               <?php
               //valida se o usuario tentou entrar em outra pagina sem logar
-              if (isset($_GET['login']) && $_GET['login'] === 'erro2') {
-                ?>
+              if (isset($_GET['login']) && $_GET['login'] === 'erro2') { ?>
                 <div class="text-danger">Login Obrigatório</div>
               <?php } ?>
 

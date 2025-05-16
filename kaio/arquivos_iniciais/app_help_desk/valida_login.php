@@ -11,12 +11,12 @@
     $usuarioAutenticado = false;
 
     //recebendo os dados via metodo GET
-    $emailUsuarios = $_GET['email'];
-    $senhaUsuarios = $_GET['senha'];
+    $emailUsuario = $_POST['email'];
+    $senhaUsuario = $_POST['senha'];
 
     //autenticando o usuario
     for ($idx = 0; $idx < count($usuarios); $idx++) {
-        if ($emailUsuarios == $usuarios[$idx]['email'] && $senhaUsuarios == $usuarios[$idx]['senha']){
+        if ($emailUsuario == $usuarios[$idx]['email'] && $senhaUsuario == $usuarios[$idx]['senha']){
             $usuarioAutenticado = true;
             $_SESSION['id'] = $usuarios[$idx]['id'];
             $_SESSION['perfil'] = $usuarios[$idx]['perfil'];
@@ -25,10 +25,11 @@
         }
 
         else{
-            $usuarioAutenticado = true;
+            $usuarioAutenticado = false;
         }
     }
 
+    //verificando se o usuario foi autenticado
     if ($usuarioAutenticado){
         //validando sessão
         $_SESSION['autenticado'] = 'sim';
