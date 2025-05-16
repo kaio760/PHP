@@ -10,12 +10,12 @@
     $descricao = str_replace('|','-',$_POST['descricao']);
 
     //Concatenando os valores de cada parâmetro separar por |
-    $dados = $id . '|' . $perfil . '|' . $nome . '|' . $titulo . '|' . $categoria . '|' . $descricao . PHP_EOL;
+    $dados = $id . ' |' . $perfil . ' |' . $nome . ' |' . $titulo . ' |' . $categoria . ' |' . $descricao . PHP_EOL;
 
     var_dump($dados);
 
     //Abrindo o arquivo e armazenando em um variavel
-    $arquivo = fopen('../../app_help_desk_cima/registros.hd','a');
+    $arquivo = fopen('../app_help_desk/registros.hd','a');
 
     //abrindo o arquivo
     fwrite($arquivo, $dados);
