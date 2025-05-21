@@ -15,7 +15,7 @@
     var_dump($dados);
 
     //Abrindo o arquivo e armazenando em um variavel
-    $arquivo = fopen('../app_help_desk/registros.hd','a');
+    $arquivo = fopen('../../../../arquivos_seguranca/registros.hd','a');
 
     //abrindo o arquivo
     fwrite($arquivo, $dados);

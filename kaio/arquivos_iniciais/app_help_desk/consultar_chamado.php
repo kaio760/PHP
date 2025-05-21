@@ -1,20 +1,18 @@
 <?php
 require_once "validador_acesso.php";
-require "config.php";
 
-//Ajustar a consulta SQL
-if ($_SESSION['perfil'] != 'Adm') {
-  $sql = "SELECT * FROM chamados WHERE id_usuario = {$_SESSION['id']}";
-} else {
-  $sql = "SELECT * FROM chamados";
+$chamados=[];
+
+$arquivo = fopen('../../../../arquivos_seguranca/registros.hd','r');
+
+
+while(!feof($arquivo)){
+  $registro = fgets($arquivo);
+  $chamados[] = $registro;
 }
 
-$res = $conexao->query($sql);
-$qtd = $res->num_rows;
+fclose($arquivo);
 
-$sql = "SELECT * from usuarios";
-$resusuarios = $conexao->query($sql);
-$qldusuarios = $resusuarios->num_rows;
 ?>
 
 
@@ -55,38 +53,43 @@ $qldusuarios = $resusuarios->num_rows;
 
           <div class="card-body">
 
+          <?php foreach($chamados as $chamado){?>
+
+            <?php $chamado_dados = explode('|', $chamado);
+
+            //Para validar que só será exibido um novo card se possuir todos os valores preenchidos
+
+            if(count($chamado_dados)<6){
+              continue;
+            }
+
+            if($_SESSION['perfil'] === 'user'){
+              if($chamado_dados[0]!=$_SESSION['id']){
+                continue;}
+              }
+            ?>
+
           <!--Rodamos um foreach passando por todos os chamados-->
-            <?php while($row = $res->fetch_assoc()) { ?>
               <div class="card mb-3 bg-light">
                 <div class="card-body">
-
-
                   <!-- Nos 3 itens abaixo aplicamos os valores respectivos em cada um deles-->
-                  <h5 class="card-title"><?php echo $row -> titulo ?></h5>
-                  <p class="card-text">Descrição: <?php echo $row -> descricao ?></p>
-                  <h6 class="card-subtitle mb-2 text-muted" style="text-align: right;"> 
-
-                    <?php
-                        $idchamado = $row -> id_chamado;
-                        $idusuario = $row -> id_usuario;
-                        $resusuarios->data_sekk(0);
-                      while($user = $resusuarios->fetch_object()){
-                        if($user -> id_usuario == $idusuario){
-                          echo '<p style="color: green; margin-bottom: 2px;"> Usuario: '. $user -> nome .'</p>';
-                            break;
-                        }
-                      }
-                    ?>
-
-                  </h6>
-                <h6 class="card_title" style="text-align: right;">Ordem de Serviço: <?php echo $row -> id_chamado ?></h6>
+                  <h5 class="card-title" ></h5><?php echo '<p style="color:#000080 ; margin-bottom: 10px; font-weight: bold; font-size: 25px;">  ' . $chamado_dados[3] .'</p>';?>
+                  <h6 class="card-subtitle mb-2 text-muted"> <?php echo '<p style="color: #17A2B8; margin-bottom: 2px;"> Usuário: ' . $chamado_dados[2] .'</p>';?>
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted"><?php echo '<p style="color: green; margin-bottom: 15px; padding-top:10px">  ' . $chamado_dados[4] .'</p>';?></h6>
+ 
+                <p class="card-text"><?php echo $chamado_dados[5] ?></p>
+ 
+                </div>
               </div>
-            </div>
-            <?php } ?>
-
-            <div class="row mt-5">
-              <div class="col-6">
-                <a class="btn btn-lg btn-warning btn-block" href="home.php">Voltar</a>
+ 
+                <?php } ?>
+ 
+              <div class="row mt-5">
+                <div class="col-6">
+                  <a href="home.php">
+                  <button class="btn btn-lg btn-warning btn-block"  link ="home.php">Voltar</button>
+                  </a>
               </div>
             </div>
           </div>
