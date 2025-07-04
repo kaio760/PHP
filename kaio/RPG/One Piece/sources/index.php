@@ -24,12 +24,16 @@
             <h1 class="title">Seja Bem vindo ao RPG de One Piece</h1>
             <p class="subtitle">Selecione as opçoes para começar</p>
             <div class="buttons is-centered">
-                <a href="jogo.php" class="button is-primary">Iniciar Jogo</a>
+                <a href="../Game/jogo.php" class="button is-primary">Iniciar Jogo</a>
                 <a href="sobre.php" class="button is-info">Sobre o jogo</a>
                 <a href="ajuda.php" class="button is-warning">Ajuda</a>
             </div>
         </div>
     </div>
+
+    <footer style="text-align:center; padding:20px; background:#222; color:white;">
+        © 2025 One Piece RPG | Desenvolvido por @KaioDev
+    </footer>
 
 </body>
 
